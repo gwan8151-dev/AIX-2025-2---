@@ -1,0 +1,5 @@
+# YOLO auto-generated folders
+runs/
+Results/
+Results_backup/
+*.pt

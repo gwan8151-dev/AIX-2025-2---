@@ -1,0 +1,4 @@
+metal_can
+paper
+glass_bottle
+plastic
