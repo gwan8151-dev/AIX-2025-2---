@@ -2,17 +2,10 @@ from pathlib import Path
 import random
 import shutil
 
-# 0. 설정 부분 -------------------------
-VAL_RATIO = 0.2  # 8:2면 0.2
+VAL_RATIO = 0.2 
 
-# 라벨링 끝난 이미지/텍스트가 있는 폴더
-# 예: my-project/samples/metalcan_nn 이런 식이면 거기 경로 적기
-SOURCE_DIR = Path("ai+x_dataset")  # <- 너 폴더명에 맞게 바꿔줘
-
-# 결과를 저장할 루트
+SOURCE_DIR = Path("ai+x_dataset")  
 OUTPUT_ROOT = Path("Results")
-# -------------------------------------
-
 
 # 1. 이미지+라벨 쌍 모으기
 image_paths = [
