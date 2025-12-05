@@ -342,3 +342,20 @@ YOLO 라벨에서 좌표는 반드시 {class x_center y_center width height } (�
 ---
 
 ### (4) 오류 해결 과정
+데이터셋을 다시 검사한 결과 몇몇 데이터에서 클래스 설정이 잘못되어있는 것을 파악하였다.
+
+<img width="205" height="108" alt="image" src="https://github.com/user-attachments/assets/441576d8-31ea-4a0b-80cb-03bde9996ef1" />
+
+위 이미지의 순서로 index를 입력해야 한다. 이를 수정하니 성공적으로 박스가 그려졌다.
+
+### (5) 학습과 예측 과정
+1. 가상환경 만들기 (Window 환경 기준)
+
+```
+conda create -n Final python=3.10
+conda activate Final
+```
+2. 필수 패키지 설치
+```
+pip install ultralytics
+```
