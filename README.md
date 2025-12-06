@@ -414,34 +414,34 @@ YOLO 라벨에서 좌표는 반드시 {class x_center y_center width height } (�
 
 ---
 
-### (4) 오류 해결 과정
+### **4.4 오류 해결 과정**
 데이터셋을 다시 검사한 결과 몇몇 데이터에서 클래스 설정이 잘못되어있는 것을 파악하였다.
 
 <img width="205" height="108" alt="image" src="https://github.com/user-attachments/assets/441576d8-31ea-4a0b-80cb-03bde9996ef1" />
 
 위 이미지의 순서로 index를 입력해야 한다. 이를 수정하니 성공적으로 박스가 그려졌다.
 
-### (5) 학습과 예측 과정
-### (5).1 가상환경 만들기 및 활성화
+# 5. 학습과 예측 과정
+### **5.1 가상환경 만들기 및 활성화**
 
 ```
 conda create -n Final python=3.10
 conda activate Final
 ```
 
-### (5).2 필수 패키지 설치
+### **5.2 필수 패키지 설치**
 
 ```
 pip install ultralytics
 ```
 
-### (5).3 데이터 라벨링
+### **5.3 데이터 라벨링**
 
  객체 탐지 모델 학습을 위해 Github 오픈소스 라벨링 도구인 LabelImg를 활용하여 이미지 데이터셋에 대한 Bounding Box 기반 객체 라벨링 작업을 수행하였다. LabelImg는 Python 기반의 GUI 라벨링 도구로, YOLO 포맷(.txt)과 Pascal VOC 포맷(.xml) 모두를 지원하며, 가벼운 인터페이스와 직관적인 조작을 통해 효율적인 라벨링 작업이 가능하다는 장점을 가진다.
 
  먼저 학습에 사용할 원본 이미지를 프로그램에 불러온 후, 마우스를 이용하여 탐지 대상 객체 영역을 사각형(Bounding Box)으로 지정하였다. 이후 해당 객체가 속하는 클래스명을 선택하여 저장하면 YOLO 학습에 필요한 텍스트 형식의 라벨 파일이 자동으로 생성된다. 생성된 라벨 파일은 이미지와 동일한 파일명을 가지며, 객체의 중심 좌표(x, y), 폭(w), 높이(h)가 이미지 크기로 정규화되어 기록된다. 이를 통해 모델이 객체의 정확한 위치 정보를 학습할 수 있도록 데이터를 구조적으로 구성하였다.
 
-### (5).4 폴더 구조 만들기
+### **5.4 폴더 구조 만들기**
 
 <aside>
 
@@ -475,7 +475,7 @@ names:
   - plastic
 ```
 
-### (5).5 학습실행
+### **5.5 학습실행**
 
 ```
 yolo detect train [model=yolov8n.pt](http://model=yolov8n.pt/) data=data.yaml epochs=25 imgsz=640 device=cpu
@@ -486,7 +486,7 @@ yolo detect train [model=yolov8n.pt](http://model=yolov8n.pt/) data=data.yaml ep
 
 
 
-### (5).6 학습모델로 객체 탐지
+### **5.6 학습모델로 객체 탐지**
 
 '''
 yolo detect predict model="C:\Users\user\runs\detect\train3\weights\[best.pt](http://best.pt/)" source=test_images/ device=cpu
@@ -494,7 +494,7 @@ yolo detect predict model="C:\Users\user\runs\detect\train3\weights\[best.pt](ht
 
 - 학습을 통해 생성된 모델 가중치([best.pt](http://best.pt/))를 활용해 실제 이미지를 분석하는 단계가 YOLO의 추론(predict) 과정이다. 먼저 yolo detect predict 명령어를 통해 학습된 모델 파일과 테스트 이미지가 위치한 폴더를 지정하면, 모델은 각 이미지를 입력받아 내부적으로 특징을 추출하고, 학습을 통해 습득한 패턴을 기반으로 객체가 존재할 가능성이 높은 영역을 탐색한다. 이후 객체의 위치를 계산하여 이미지 위에 시각적으로 표시한다.
 
-### (5).7 결과
+### **5.7 결과**
 
 - 탐지 결과를 보면 하나의 객체만 포함된 이미지에서는 비교적 정확하게 분류와 박스 표시가 이루어지지만, 여러 종류의 쓰레기 객체가 동시에 등장하는 이미지에서는 탐지 성능이 떨어지는 한계를 확인할 수 있다. 이는 학습 데이터가 단일 객체 중심으로 구성되어 있어 모델이 복잡한 장면에서 객체 간의 경계를 구분하는 데 필요한 다양성을 충분히 학습하지 못했기 때문이다. 또한 배경의 복잡도, 객체 간의 겹침(occlusion), 조명·각도 변화 등에 대한 학습이 부족할수록 모델은 한 이미지 안에서 여러 물체가 혼재된 상황을 처리하는 데 어려움을 겪는다. 이러한 문제는 다객체 이미지 비중을 늘린 추가 데이터 수집, 학습 epoch 증가, 다양한 환경에서 촬영된 이미지 확보 등을 통해 개선해야 할 것 같다.
 
