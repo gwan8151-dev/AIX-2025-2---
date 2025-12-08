@@ -9,6 +9,8 @@
 
 서울 산업공학과 박소연 (데이터 전처리 및 성능 분석 / 영상 촬영)
 
+##### Video (Youtube): https://youtu.be/PrngXIJj5Hs
+
 **Contents**
 1. 주제 및 주제 선정 과정
 2. YOLO 모델에 대해서  (팀원들 간 정보 공유, 모델 탐구 과정)
